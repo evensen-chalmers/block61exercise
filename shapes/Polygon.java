@@ -1,17 +1,20 @@
 package shapes;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Niklas on 2016-02-17.
+ * Minor edits by Pelle on 2021-12-06
  */
 public abstract class Polygon extends Shape {
 
     protected Polygon(int x, int y){ super(x,y); }
 
-    public void paint(Graphics g){
+    @Override
+	public void paint(Graphics g){
         List<Point> corners = getCorners();
         // first and last point should be the same
         corners.add(corners.get(0));

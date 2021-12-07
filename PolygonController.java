@@ -1,45 +1,52 @@
-import polygons.PolygonFactory;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.*;
-import java.awt.event.*;
+import polygons.PolygonFactory;
 
 /**
  * Created by Niklas on 2016-02-21.
+ * Minor edits by Pelle on 2021-12-06
  */
 public class PolygonController {
 
-    private PolygonModel model;
-    private PolygonViewer view;
+	private final PolygonModel model;
+	private final PolygonViewer view;
 
-    public PolygonController(PolygonModel model, PolygonViewer view) {
-        this.model = model;
-        this.view = view;
-        initInteraction();
-    }
+	public PolygonController(PolygonModel model, PolygonViewer view) {
+		this.model = model;
+		this.view = view;
+		initInteraction();
+	}
 
-    private void initInteraction() {
-        view.addMouseListener(new PolygonCreator());
-    }
+	private void initInteraction() {
+		this.view.addMouseListener(new PolygonCreator());
+	}
 
-    private class PolygonCreator implements MouseListener {
-        public void mouseEntered(MouseEvent e) {
-        }
+	private class PolygonCreator implements MouseListener {
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
 
-        public void mousePressed(MouseEvent e) {
-        }
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
 
-        public void mouseReleased(MouseEvent e) {
-        }
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
 
-        public void mouseExited(MouseEvent e) {
-        }
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
 
-        public void mouseClicked(MouseEvent e) {
-            Point pointClicked = e.getPoint();
-            model.addPolygon(PolygonFactory.createRectangle(pointClicked.x, pointClicked.y));
-            view.repaint();
-        }
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Point pointClicked = e.getPoint();
+			PolygonController.this.model.addPolygon(PolygonFactory.createRectangle(pointClicked.x, pointClicked.y));
+			PolygonController.this.view.repaint();
+		}
 
-    }
+	}
 
 }

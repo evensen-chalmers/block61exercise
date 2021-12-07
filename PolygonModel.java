@@ -1,64 +1,70 @@
-import polygons.IPolygon;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JComponent;
+
+import polygons.IPolygon;
 
 /**
  * Created by Niklas on 2016-02-21.
+ * Minor edits by Pelle on 2021-12-06
  */
 public class PolygonModel extends JComponent {
-    private ArrayList<IPolygon> polygons = new ArrayList<>();
+	private final ArrayList<IPolygon> polygons = new ArrayList<>();
 
-    private boolean direction = true;
-    private int ticker = 0;
+	private boolean direction = true;
+	private int ticker = 0;
 
-    public void addPolygon(IPolygon p){
-        polygons.add(p);
-    }
+	public void addPolygon(IPolygon p) {
+		this.polygons.add(p);
+	}
 
-    public void paint(Graphics g) {
-        for (IPolygon polygon : polygons) {
-            polygon.paint(g);
-        }
-    }
+	@Override
+	public void paint(Graphics g) {
+		for (IPolygon polygon : this.polygons) {
+			polygon.paint(g);
+		}
+	}
 
-    public void translate(int x, int y){
-        for (IPolygon p: polygons){
-            p.updateCenter(p.getCenter().x+x, p.getCenter().y+y);
-        }
+	public void translate(int x, int y) {
+		for (IPolygon p : this.polygons) {
+			p.updateCenter(p.getCenter().x + x, p.getCenter().y + y);
+		}
 
-    }
-    public void update(){
-        ticker++;
-        int value = direction ? 10 : -10;
-        translate(value, value);
-        notifyListeners();
-        if (ticker > 10) {
-            direction = !direction;
-            ticker = 0;
-        }
-    }
+	}
 
-    private void notifyListeners(){
-        for (AnimateListener l : listeners)
-            l.actOnUpdate();
-    }
+	public void update() {
+		this.ticker++;
+		int value = this.direction ? 10 : -10;
+		translate(value, value);
+		notifyListeners();
+		if (this.ticker > 10) {
+			this.direction = !this.direction;
+			this.ticker = 0;
+		}
+	}
 
-    public void animate(){
-        try {
-            while (true) {
-                Thread.sleep(500);
-                update();
-            }
-        } catch (InterruptedException e) {}
-    }
+	private void notifyListeners() {
+		for (AnimateListener l : this.listeners) {
+			l.actOnUpdate();
+		}
+	}
 
-    private List<AnimateListener> listeners = new ArrayList<>();
-    public void addListener(AnimateListener l){
-        listeners.add(l);
-    }
+	public void animate() {
+		try {
+			while (true) {
+				Thread.sleep(500);
+				update();
+			}
+		} catch (InterruptedException e) {
+		}
+	}
+
+	private final List<AnimateListener> listeners = new ArrayList<>();
+
+	public void addListener(AnimateListener l) {
+		this.listeners.add(l);
+	}
 
 }
-
