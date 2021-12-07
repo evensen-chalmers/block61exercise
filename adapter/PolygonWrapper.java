@@ -1,14 +1,16 @@
 package adapter;
 
-import shapes.Polygon;
+import java.awt.Graphics;
+import java.awt.Point;
 
-import java.awt.*;
+import shapes.Polygon;
 
 /**
  * Created by Niklas on 2016-02-21.
+ *
  */
 /* package-private */ class PolygonWrapper implements IPolygon {
-    private Polygon wrappedPolygon;
+    private final Polygon wrappedPolygon;
 
     PolygonWrapper(Polygon toBeWrapped) {
         this.wrappedPolygon = toBeWrapped;
@@ -16,18 +18,18 @@ import java.awt.*;
 
     @Override
     public void paint(Graphics g) {
-        wrappedPolygon.paint(g);
+        this.wrappedPolygon.paint(g);
     }
 
     /* This is where the magic happens */
     @Override
     public void updateCenter(int newX, int newY) {
-        Point oldCenter = wrappedPolygon.getCenterPoint();
-        wrappedPolygon.translate(newX - oldCenter.x, newY - oldCenter.y);
+        Point oldCenter = this.wrappedPolygon.getCenterPoint();
+        this.wrappedPolygon.translate(newX - oldCenter.x, newY - oldCenter.y);
     }
 
     @Override
     public Point getCenter() {
-        return wrappedPolygon.getCenterPoint();
+        return this.wrappedPolygon.getCenterPoint();
     }
 }

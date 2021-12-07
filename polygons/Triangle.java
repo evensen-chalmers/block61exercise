@@ -1,6 +1,6 @@
 package polygons;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 /**
  * Created by Niklas on 2016-01-19.
@@ -12,9 +12,9 @@ class Triangle extends Polygon {
 
     @Override
     public void paint(Graphics g){
-        g.drawLine(centerPoint.x, centerPoint.y-10, centerPoint.x-10, centerPoint.y+10);
-        g.drawLine(centerPoint.x-10, centerPoint.y+10,
-                centerPoint.x+10, centerPoint.y+10);
-        g.drawLine(centerPoint.x+10, centerPoint.y+10, centerPoint.x, centerPoint.y-10);
+        g.drawLine(this.centerPoint.x, this.centerPoint.y-10, this.centerPoint.x-10, this.centerPoint.y+10);
+        g.drawLine(this.centerPoint.x-10, this.centerPoint.y+10,
+                this.centerPoint.x+10, this.centerPoint.y+10);
+        g.drawLine(this.centerPoint.x+10, this.centerPoint.y+10, this.centerPoint.x, this.centerPoint.y-10);
     }
 }
